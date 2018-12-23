@@ -44,7 +44,7 @@ interface Contest {
 }
 
 const fetchAtcoderContests = () => {
-    const response = UrlFetchApp.fetch('http://atcoder.jp/contest?lang=ja');
+    const response = UrlFetchApp.fetch('https://atcoder.jp/contests/?lang=en');
     const document = XmlService.parse(Xml.parse(response.getContentText(), true).html.body.toXmlString());
     const root = document.getRootElement();
     const contestTable = getElementsByClassName(root, 'table')[1];
@@ -52,13 +52,13 @@ const fetchAtcoderContests = () => {
     const rows = getElementsByTagName(tbody, 'tr');
 
     const contests = [];
-    for (let i = 0; i < rows.length; i += 3) {
+    for (let i = 0; i < rows.length; i++) {
         const columns = getElementsByTagName(rows[i], 'td');
 
         const dateString = columns[0].getValue().trim()
             .replace(/\//g, '-')
             .replace(' ', 'T');
-        const date = new Date(`${dateString}:00+0900`);
+        const date = new Date(dateString);
 
         const url = columns[1].getChild('a').getAttribute('href').getValue();
         const title = columns[1].getChild('a').getText();
