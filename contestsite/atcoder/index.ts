@@ -1,6 +1,6 @@
 import {getElementsByClassName, getElementsByTagName, parseHtml} from "../../util/htmlParser";
 import {IContest} from "../../model/contest";
-import {calculateDurationFromString} from "../../util/time";
+import {calculateDurationFromString, calculateEndDate, parseDateString} from "./atcoder";
 
 export function fetchAtcoderContests() {
     const response = UrlFetchApp.fetch("https://atcoder.jp/contests/?lang=en");
@@ -13,22 +13,16 @@ export function fetchAtcoderContests() {
     const contests: IContest[] = [];
     for (const row of rows) {
         const columns = getElementsByTagName(row, "td");
-
-        const dateString = columns[0].getValue().trim()
-            .replace(/\//g, "-")
-            .replace(" ", "T");
-        const date = new Date(dateString);
-
+        const date = parseDateString(columns[0].getValue());
         const url = columns[1].getChild("a").getAttribute("href").getValue();
         const title = columns[1].getChild("a").getText();
-
         const duration = calculateDurationFromString(columns[2].getValue());
 
         contests.push({
             title,
             url,
             startTime: date,
-            endTime: new Date(date.getTime() + duration * 1000),
+            endTime: calculateEndDate(date, duration),
         });
     }
     return contests;
