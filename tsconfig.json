@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "baseUrl": "./",
+    "paths": {
+      "xml": [
+        "types/xml"
+      ]
+    },
+    "typeRoots": [
+      "types",
+      "node_modules/@types"
+    ]
+  }
+}

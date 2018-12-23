@@ -1,4 +1,6 @@
 import Calendar = GoogleAppsScript.Calendar.Calendar;
+import {Xml} from "xml";
+import {calculateDurationFromString} from "./util/time";
 
 const getElementsByClassName = (element, classToFind: string) => {
     const data = [];
@@ -64,10 +66,7 @@ const fetchAtcoderContests = () => {
         const url = columns[1].getChild("a").getAttribute("href").getValue();
         const title = columns[1].getChild("a").getText();
 
-        const [durationHour, durationMinute] = columns[2].getValue()
-            .split(":")
-            .map((s) => parseInt(s, 10));
-        const duration = durationHour * 3600 + durationMinute * 60;
+        const duration = calculateDurationFromString(columns[2].getValue());
 
         contests.push({
             title,
