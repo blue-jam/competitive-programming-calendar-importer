@@ -1,0 +1,26 @@
+{
+  "name": "competitive-programming-calendar-importer",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.ts",
+  "dependencies": {},
+  "devDependencies": {
+    "@types/google-apps-script": "0.0.33",
+    "tslint": "^5.12.0",
+    "typescript": "^3.2.2"
+  },
+  "scripts": {
+    "lint": "tslint *.ts",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/blue-jam/competitive-programming-calendar-importer.git"
+  },
+  "author": "blue-jam",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/blue-jam/competitive-programming-calendar-importer/issues"
+  },
+  "homepage": "https://github.com/blue-jam/competitive-programming-calendar-importer#readme"
+}
