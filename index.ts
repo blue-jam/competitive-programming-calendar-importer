@@ -1,6 +1,5 @@
 import Calendar = GoogleAppsScript.Calendar.Calendar;
-import {Xml} from "xml";
-import {getElementsByClassName, getElementsByTagName} from "./util/htmlParser";
+import {getElementsByClassName, getElementsByTagName, parseHtml} from "./util/htmlParser";
 import {calculateDurationFromString} from "./util/time";
 
 interface IContest {
@@ -12,7 +11,7 @@ interface IContest {
 
 const fetchAtcoderContests = () => {
     const response = UrlFetchApp.fetch("https://atcoder.jp/contests/?lang=en");
-    const document = XmlService.parse(Xml.parse(response.getContentText(), true).html.body.toXmlString());
+    const document = parseHtml(response);
     const root = document.getRootElement();
     const contestTable = getElementsByClassName(root, "table")[1];
     const tbody = getElementsByTagName(contestTable, "tbody")[0];
@@ -74,8 +73,7 @@ const addContest = (contest: IContest, dstCalendar: Calendar) => {
         contest.url = "";
     }
     if (typeof res === "undefined") {
-        dstCalendar.createEvent(title, startTime, endTime,
-            { description: url, location: url });
+        dstCalendar.createEvent(title, startTime, endTime, { description: url, location: url });
     } else {
         res.setTime(startTime, endTime);
         res.setLocation(url);

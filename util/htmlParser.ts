@@ -1,4 +1,6 @@
 import Element = GoogleAppsScript.XML_Service.Element;
+import HTTPResponse = GoogleAppsScript.URL_Fetch.HTTPResponse;
+import {Xml} from "xml";
 
 export function getElementsByClassName(element: Element, classToFind: string): Element[] {
     const data = [];
@@ -38,4 +40,8 @@ export function getElementsByTagName(element: Element, tagName: string): Element
     }
 
     return data;
+}
+
+export function parseHtml(response: HTTPResponse) {
+    return XmlService.parse(Xml.parse(response.getContentText(), true).html.body.toXmlString());
 }
