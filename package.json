@@ -13,7 +13,8 @@
     "typescript": "^3.2.2"
   },
   "scripts": {
-    "lint": "tslint *.ts",
+    "lint": "tslint **/*.ts",
+    "lint-fix": "tslint **/*.ts --fix",
     "test": "jest"
   },
   "repository": {

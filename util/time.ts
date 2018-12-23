@@ -1,4 +1,4 @@
-export function calculateDurationFromString (duration: string) : number {
+export function calculateDurationFromString(duration: string): number {
     const [durationHour, durationMinute] = duration.split(":")
         .map((s) => parseInt(s, 10));
 
