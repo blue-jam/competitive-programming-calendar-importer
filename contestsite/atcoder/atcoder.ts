@@ -3,9 +3,7 @@ export function parseDateString(dateString: string) {
         .replace(/\(.*\)/g, "")
         .replace(" ", "T");
 
-    return new Date(
-        `${formattedString}+09:00`
-    );
+    return new Date(formattedString);
 }
 
 export function calculateDurationFromString(duration: string): number {
