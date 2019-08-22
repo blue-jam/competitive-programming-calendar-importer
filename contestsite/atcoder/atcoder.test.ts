@@ -1,7 +1,7 @@
 import {calculateDurationFromString, calculateEndDate, parseDateString} from "./atcoder";
 
 test("Parse a string indicates a start time of an AtCoder contest", () => {
-    expect(parseDateString("2018-12-29(Sat) 21:00"))
+    expect(parseDateString("2018-12-29(Sat) 21:00+09:00"))
         .toEqual(new Date(1546084800000));
 });
 
