@@ -28,10 +28,11 @@ const checkDuplication = (title: string, startTime: Date, dstCalendar: Calendar)
 };
 
 const addContest = (contest: IContest, dstCalendar: Calendar) => {
-    const { title, startTime, endTime, url } = contest;
+    const { title, startTime, endTime } = contest;
+    let { url } = contest;
     const res = checkDuplication(title, startTime, dstCalendar);
-    if (typeof contest.url === "undefined") {
-        contest.url = "";
+    if (typeof url === "undefined") {
+        url = "";
     }
     if (typeof res === "undefined") {
         dstCalendar.createEvent(title, startTime, endTime, { description: url, location: url });
