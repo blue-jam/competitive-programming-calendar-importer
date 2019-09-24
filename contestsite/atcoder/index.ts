@@ -21,6 +21,7 @@ export function fetchAtcoderContests() {
         const duration = calculateDurationFromString(columns[2].getValue());
 
         contests.push({
+            contestId: "atcoder-" + path,
             title,
             url: ATCODER_BASE_URL + path,
             startTime: date,
