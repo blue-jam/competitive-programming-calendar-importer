@@ -12,7 +12,9 @@ after_script:
 before_deploy:
   - npm install -g clasp
   - echo $CLASPRC > ~/.clasprc.json
+  - echo $CLASPRC
   - echo $CLASPCONF > .clasp.json
+  - echo $CLASPCONF
 deploy:
   provider: script
   script: bash scripts/deploy.sh
