@@ -11,6 +11,7 @@ after_script:
   - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
 before_deploy:
   - npm install -g clasp
+  - clasp --version
   - echo $CLASPRC > ~/.clasprc.json
   - echo $CLASPCONF > .clasp.json
 deploy:
