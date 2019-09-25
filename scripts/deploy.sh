@@ -1,5 +1,5 @@
 #!/bin/bash -e
 
-echo $CLASPRC > ~/.clasprc.json;
-echo $CLASPCONF > .clasp.json;
+echo "Pushing Google Apps Script"
+
 clasp push
