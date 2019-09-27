@@ -52,6 +52,21 @@ const addContest = (contest: IContest, dstCalendar: Calendar, eventDb: IEventDb)
     }
 };
 
+const filterOutFinishedEventsFromDb = (eventDb: IEventDb, calendar: Calendar) => {
+    const currentTimeMillis = Date.now();
+
+    const futureOrOngoingContestIds = Object.keys(eventDb).filter((contestId) => {
+        const endTime = calendar.getEventById(eventDb[contestId].eventId).getEndTime();
+
+        return endTime.getTime() > currentTimeMillis;
+    });
+
+    const newEventDb = {};
+    futureOrOngoingContestIds.forEach((contestId) => newEventDb[contestId] = eventDb[contestId]);
+
+    return newEventDb;
+};
+
 function updateCalendar() {
     // Read calendar ids from Properties
     const scriptProperties = PropertiesService.getScriptProperties();
@@ -74,5 +89,7 @@ function updateCalendar() {
     const contests = [...codeforcesContest, ...atcoderContests];
     contests.forEach((e) => addContest(e, dstCalendar, eventDb));
 
-    eventDbDoc.getBody().setText(JSON.stringify(eventDb));
+    const newEventDb = filterOutFinishedEventsFromDb(eventDb, dstCalendar);
+
+    eventDbDoc.getBody().setText(JSON.stringify(newEventDb));
 }
