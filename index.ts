@@ -44,10 +44,18 @@ const addContest = (contest: IContest, dstCalendar: Calendar, eventDb: IEventDb)
         const event = dstCalendar.createEvent(title, startTime, endTime, { description: url, location: url });
         eventDb[contest.contestId] = { contestId: contest.contestId, eventId: event.getId() };
     } else {
-        res.setTitle(contest.title);
-        res.setTime(startTime, endTime);
-        res.setLocation(url);
-        res.setDescription(url);
+        if (res.getTitle() !== contest.title) {
+            res.setTitle(contest.title);
+        }
+        if (res.getStartTime() !== startTime || res.getEndTime() !== endTime) {
+            res.setTime(startTime, endTime);
+        }
+        if (res.getLocation() !== url) {
+            res.setLocation(url);
+        }
+        if (res.getDescription() !== url) {
+            res.setDescription(url);
+        }
         eventDb[contest.contestId] = { contestId: contest.contestId, eventId: res.getId() };
     }
 };
